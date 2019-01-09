@@ -1,0 +1,203 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Gamedev Canvas Workshop</title>
+    <style media="screen">
+      * {padding: 0; margin: 0;}
+      canvas{ background: #eee; display: block; margin: 0 auto;}
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+
+    <script type="text/javascript">
+
+
+    	/* Bind, Call and Apply */
+
+      var Tyler = {
+      	name: 'Tyler',
+      	age: 25,
+      	job: 'Software Developer',
+      	//place function inside of the object
+      	presentation: function(style, timeOfDay) {
+      		//if first argument "Style" is equal too formal
+      		if (style === 'formal') {
+      			console.log('Good ' + timeOfDay + ', Ladies and gentlemen! I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+
+      		//if the first argument "style" is equal to friendly
+      		} else if (style === 'friendly') {
+      			console.log('Hey! whats up? Im ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+      		}
+      	}
+    };
+
+    // create new object to pass into the callback function
+    var emily = {
+    	name: 'Emily',
+    	age: 35,
+    	job: 'UI Developer'
+    };
+
+    Tyler.presentation('formal', 'afternoon');
+    //passing in the two functions arguements
+
+    Tyler.presentation.call(emily, 'friendly', 'Evenning');
+    //pass in the object then the two functions arguments
+
+    //Bind the "friendly" argument into the style parameter
+    var tylerFriendly = Tyler.presentation.bind(Tyler, 'friendly');
+
+    //Now we only need to call in the second parameter of the function
+    //bind allows us to preset arguments
+    tylerFriendly('morning');
+
+    //binding "formal" to emily object
+    var emilyFormal = Tyler.presentation.bind(emily, 'formal');
+
+    //call in second argument
+    emilyFormal('afternoon');
+
+
+
+
+
+
+
+
+
+    // //calculate ages function. Checks if somebody is of legal age to drink
+
+    // //start with a array of car years
+    // var carYears = [1990, 1965, 1937, 2005, 1998];
+
+    // //create a function that takes in an array and a function for parameters
+    // function arrayCalc(arr, fn) {
+    // 	var arrRes = [];
+
+    // //run through the passed in array adding each item to new, empty array	
+    // 	for (var i = 0; i < arr.length; i++) {
+    // 		arrRes.push(fn(arr[i]));
+    // 	}
+    // 	return arrRes;
+    // }
+
+    // //create a calculate warranty function. Current year - warranty end in years (can be changed for milage)
+    // function calculateWarr(el) {
+    // 	return 2010 - el;
+    // }
+
+    // //calculate if the car is past the limit
+   
+    // function isValid(limit, el) {
+    // 	return el >= limit;
+    // }
+
+    // // set ages too
+    // var yearEnds = arrayCalc(carYears, calculateWarr);
+
+    // var validWarranty = arrayCalc(yearEnds,isValid.bind(this,5));
+
+    // console.log(yearEnds);
+    // //return boolean values, true/false if they're of leagal age to drink alcohol
+    // console.log(validWarranty); 
+
+
+
+
+
+
+    // check car warranty status, test by subtracting car year - current year. Test if the amount of years is greater than 5 OR if the milage is greater than 60,000. Return true if it is valid and false if it is not. Then push the result to a new array. Return the results to the screen.
+
+    // create objects with client and car data
+    let allClients = [
+    client1 = {
+    	name: 'Tyler McIntyre',
+    	id: 1,
+    	age: 25,
+    	Make: 'Honda',
+    	Model: 'Accord',
+    	Year: 2013,
+    	milage: 50000,
+    	phone: 8027392204
+    },
+
+    client2 = {
+    	name: 'Mary Cutler',
+    	id: 2,
+    	age: 37,
+    	Make: 'Jeep',
+    	Model: 'Wrangler',
+    	Year: 2017,
+    	milage: 5493,
+    	phone: 3038499434
+    },
+
+    client3 = {
+    	name: 'Bill Ding',
+    	id: 3,
+    	age: 21,
+    	Make: 'Ford',
+    	Model: 'Explorer',
+    	Year: 1999,
+    	milage: 150254,
+    	phone: 7028761946
+    },
+
+    client4= {
+    	name: 'Mike Smith',
+    	id: 4,
+    	age: 29,
+    	Make: 'lamborghini',
+    	Model: 'Diablo',
+    	Year: 2018,
+    	milage: 2000,
+    	phone: 8025651173
+    },
+
+    client5 = {
+    	name: 'Earl Grey',
+    	id: 5,
+    	age: 55,
+    	Make: 'Ford',
+    	Model: 'ThunderBird',
+    	Year: 1979,
+    	milage: 20000,
+    	phone: 5641752256
+    }
+    ];
+
+    let isValid = [];
+    let isNotValid = [];
+    
+
+    function calcWarr(arr){
+    	
+    	for(let i = 0; i < arr.length; i++) {
+    		let WarrYears = 2019 - arr[i].Year;
+
+    		//push to 'not valid' array if car is less than 5 years from the current year
+    		// or push to array if the milage is over 60,000
+    		if (WarrYears >= 5 || arr[i].milage >= 60000) {
+    			isNotValid.push(arr[i].id, arr[i].name, arr[i].phone);
+
+    		//push to currently is valid if neither are true
+    		} else {
+    			isValid.push(arr[i]);
+    		}
+    	}
+    }
+
+    // use function to find all valid and non valid warranties of all clients in the database
+    calcWarr(allClients);
+
+    //Show currently valid warranties
+    console.log(isValid);
+    //show currently non valid warranties
+    console.log(isNotValid);
+
+    </script>
+
+  </body>
+</html>
